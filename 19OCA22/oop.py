@@ -135,26 +135,82 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 # inheritance and polymorphism
 
-class Person:
-    company = "Clarusway"
+# class Person:
+#     company = "Clarusway"
 
+#     def __init__(self, name, age):
+#         self.name = name
+#         self.age = age
+
+#     def __str__(self):
+#         return f"Name: {self.name}      Age : {self.age}"
+
+#     def get_details(self):
+#         print("name", self.name, self.age)
+
+# class Lang:
+#     def __init__(self, langs):
+#         self.langs = langs
+    
+
+# class Employee(Person, Lang):
+
+#      def __init__(self, name, age, path):
+#         # self.name = name
+#         # self.age = age
+#         super().__init__(name,age)
+#         Lang.__init__(self,['Python','JS'])
+#         self.path = path
+
+#      # override
+#      def get_details(self):
+#         print("name", self.name, self.age, self.path)
+
+# emp1 = Employee('Aaron',35,'FS')
+
+# print(emp1.company)
+# emp1.get_details()
+
+# print(Employee.mro())
+
+# # inner class
+
+# from django.db import models
+
+# class Article(models.Model):
+#     first_name = models.CharField(max_length=30)
+#     last_name = models.CharField(max_length=30)
+
+#     class Meta:
+#         ordering = ["last_name"]
+
+class Person:
     def __init__(self, name, age):
         self.name = name
         self.age = age
+        self.movements = []
 
-    def __str__(self):
-        return f"Name: {self.name}      Age : {self.age}"
+    def add_movement(self, number, date, explain):
+        self.movements.append({'amount': number, 'date': date, 'explain': explain})
+    
+    def all_movements(self):
+        # print(self.movements)
+        for i in self.movements:
+            print(i["date"], i["amount"], i["explain"])
 
-    def get_details(self):
-        print("name", self.name, self.age)
+    def balance(self):
+        # sum = 0
+        # for i in self.movements:
+        #     sum += i["amount"]
+        # return sum
+        return sum([i['amount'] for i in self.movements])
 
-class Employee(Person):
+person1 = Person('Barry', 44)
+person1.add_movement(-50,'19.01.2022', 'buy gasoline')
+person1.add_movement(1000,'15.01.2022', 'salary')
+person1.add_movement(-500,'16.01.2022', 'rent')
+person1.add_movement(-100,'19.01.2022', 'electric bill')
+person1.add_movement(-200,'19.01.2022', 'gas bill')
 
-     def __init__(self, name, age, path):
-        self.name = name
-        self.age = age
-        self.path= path
-
-emp1 = Employee('Aaron',35,'FS')
-
-print(emp1.company)
+person1.all_movements()    
+print(person1.balance())
